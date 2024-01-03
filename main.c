@@ -3,134 +3,134 @@
 #include <string.h>
 
 typedef struct {
-    int busID;
+    int identifiantBus;
     char destination[50];
-    int seatsAvailable;
+    int placesDisponibles;
 } Bus;
 
 typedef struct {
-    int reservationID;
-    char travelerName[50];
-    int busID;
+    int identifiantReservation;
+    char nomVoyageur[50];
+    int identifiantBus;
 } Reservation;
 
 typedef struct {
-    int travelerID;
-    char travelerName[50];
-} Traveler;
+    int identifiantVoyageur;
+    char nomVoyageur[50];
+} Voyageur;
 
-Bus buses[10];
+Bus autobus[10];
 Reservation reservations[100];
-Traveler travelers[100];
+Voyageur voyageurs[100];
 
-int numBuses = 0;
-int numReservations = 0;
-int numTravelers = 0;
+int nbAutobus = 0;
+int nbReservations = 0;
+int nbVoyageurs = 0;
 
-void createBus() {
-    printf("\nEnter Bus Details:\n");
-    printf("Bus ID: ");
-    scanf("%d", &buses[numBuses].busID);
-    printf("Destination: ");
-    scanf("%s", buses[numBuses].destination);
-    printf("Seats Available: ");
-    scanf("%d", &buses[numBuses].seatsAvailable);
-    numBuses++;
-    printf("Bus created successfully.\n");
+void creerAutobus() {
+    printf("\nEntrez les détails de l'autobus :\n");
+    printf("Identifiant de l'autobus : ");
+    scanf("%d", &autobus[nbAutobus].identifiantBus);
+    printf("Destination : ");
+    scanf("%s", autobus[nbAutobus].destination);
+    printf("Places disponibles : ");
+    scanf("%d", &autobus[nbAutobus].placesDisponibles);
+    nbAutobus++;
+    printf("Autobus créé avec succès.\n");
 }
 
-void createTraveler() {
-    printf("\nEnter Traveler Details:\n");
-    printf("Traveler ID: ");
-    scanf("%d", &travelers[numTravelers].travelerID);
-    printf("Name: ");
-    scanf("%s", travelers[numTravelers].travelerName);
-    numTravelers++;
-    printf("Traveler account created successfully.\n");
+void creerVoyageur() {
+    printf("\nEntrez les détails du voyageur :\n");
+    printf("Identifiant du voyageur : ");
+    scanf("%d", &voyageurs[nbVoyageurs].identifiantVoyageur);
+    printf("Nom : ");
+    scanf("%s", voyageurs[nbVoyageurs].nomVoyageur);
+    nbVoyageurs++;
+    printf("Compte voyageur créé avec succès.\n");
 }
 
-void createReservation() {
-    printf("\nEnter Reservation Details:\n");
-    printf("Reservation ID: ");
-    scanf("%d", &reservations[numReservations].reservationID);
-    printf("Traveler Name: ");
-    scanf("%s", reservations[numReservations].travelerName);
-    printf("Bus ID: ");
-    scanf("%d", &reservations[numReservations].busID);
-    numReservations++;
-    printf("Reservation created successfully.\n");
+void creerReservation() {
+    printf("\nEntrez les détails de la réservation :\n");
+    printf("Identifiant de la réservation : ");
+    scanf("%d", &reservations[nbReservations].identifiantReservation);
+    printf("Nom du voyageur : ");
+    scanf("%s", reservations[nbReservations].nomVoyageur);
+    printf("Identifiant de l'autobus : ");
+    scanf("%d", &reservations[nbReservations].identifiantBus);
+    nbReservations++;
+    printf("Réservation créée avec succès.\n");
 }
 
-void displayBusDetails() {
-    printf("\nBus Details:\n");
-    for (int i = 0; i < numBuses; i++) {
-        printf("Bus ID: %d, Destination: %s, Seats Available: %d\n",
-               buses[i].busID, buses[i].destination, buses[i].seatsAvailable);
+void afficherDetailsAutobus() {
+    printf("\nDétails de l'autobus :\n");
+    for (int i = 0; i < nbAutobus; i++) {
+        printf("Identifiant de l'autobus : %d, Destination : %s, Places disponibles : %d\n",
+               autobus[i].identifiantBus, autobus[i].destination, autobus[i].placesDisponibles);
     }
 }
 
-void displayReservationDetails() {
-    printf("\nReservation Details:\n");
-    for (int i = 0; i < numReservations; i++) {
-        printf("Reservation ID: %d, Traveler Name: %s, Bus ID: %d\n",
-               reservations[i].reservationID, reservations[i].travelerName, reservations[i].busID);
+void afficherDetailsReservation() {
+    printf("\nDétails de la réservation :\n");
+    for (int i = 0; i < nbReservations; i++) {
+        printf("Identifiant de la réservation : %d, Nom du voyageur : %s, Identifiant de l'autobus : %d\n",
+               reservations[i].identifiantReservation, reservations[i].nomVoyageur, reservations[i].identifiantBus);
     }
 }
 
-void modifyReservationDetails() {
-    int reservationID;
-    printf("\nEnter Reservation ID to modify: ");
-    scanf("%d", &reservationID);
+void modifierDetailsReservation() {
+    int identifiantReservation;
+    printf("\nEntrez l'identifiant de la réservation à modifier : ");
+    scanf("%d", &identifiantReservation);
 
-    for (int i = 0; i < numReservations; i++) {
-        if (reservations[i].reservationID == reservationID) {
-            printf("Modify Reservation Details:\n");
-            printf("Traveler Name: ");
-            scanf("%s", reservations[i].travelerName);
-            printf("Bus ID: ");
-            scanf("%d", &reservations[i].busID);
-            printf("Reservation modified successfully.\n");
+    for (int i = 0; i < nbReservations; i++) {
+        if (reservations[i].identifiantReservation == identifiantReservation) {
+            printf("Modifier les détails de la réservation :\n");
+            printf("Nom du voyageur : ");
+            scanf("%s", reservations[i].nomVoyageur);
+            printf("Identifiant de l'autobus : ");
+            scanf("%d", &reservations[i].identifiantBus);
+            printf("Réservation modifiée avec succès.\n");
             return;
         }
     }
 
-    printf("Reservation ID not found.\n");
+    printf("Identifiant de la réservation introuvable.\n");
 }
 
 int main() {
-    int choice;
+    int choix;
 
     do {
-        printf("\nE-Bus Menu:\n");
-        printf("1. Create a new traveler account\n");
-        printf("2. Create a new reservation\n");
-        printf("3. Display bus details\n");
-        printf("4. Display and modify reservation details\n");
-        printf("0. Quit\n");
-        printf("Choice: ");
-        scanf("%d", &choice);
+        printf("\nMenu E-Bus :\n");
+        printf("1. Créer un nouveau compte voyageur\n");
+        printf("2. Créer une nouvelle réservation\n");
+        printf("3. Afficher les détails des autobus\n");
+        printf("4. Afficher et modifier les détails d'une réservation\n");
+        printf("0. Quitter\n");
+        printf("Choix : ");
+        scanf("%d", &choix);
 
-        switch (choice) {
+        switch (choix) {
             case 1:
-                createTraveler();
+                creerVoyageur();
                 break;
             case 2:
-                createReservation();
+                creerReservation();
                 break;
             case 3:
-                displayBusDetails();
+                afficherDetailsAutobus();
                 break;
             case 4:
-                displayReservationDetails();
-                modifyReservationDetails();
+                afficherDetailsReservation();
+                modifierDetailsReservation();
                 break;
             case 0:
-                printf("Goodbye!\n");
+                printf("Au revoir !\n");
                 break;
             default:
-                printf("Invalid choice. Please try again.\n");
+                printf("Choix invalide. Veuillez réessayer.\n");
         }
-    } while (choice != 0);
+    } while (choix != 0);
 
     return 0;
 }
